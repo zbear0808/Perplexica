@@ -47,6 +47,13 @@ interface Config {
       API_KEY: string;
       MODEL_NAME: string;
     };
+    BEDROCK: {
+      ACCESS_KEY_ID: string;
+      SECRET_ACCESS_KEY: string;
+      REGION: string;
+      SESSION_TOKEN?: string;
+      CREDENTIALS_FILE?: string;
+    };
   };
   API_ENDPOINTS: {
     SEARXNG: string;
@@ -104,6 +111,42 @@ export const getCustomOpenaiModelName = () =>
 
 export const getLMStudioApiEndpoint = () =>
   loadConfig().MODELS.LM_STUDIO.API_URL;
+
+export const getBedrockAccessKeyId = () =>
+  loadConfig().MODELS.BEDROCK.ACCESS_KEY_ID;
+
+export const getBedrockSecretAccessKey = () =>
+  loadConfig().MODELS.BEDROCK.SECRET_ACCESS_KEY;
+
+export const getBedrockRegion = () => loadConfig().MODELS.BEDROCK.REGION;
+
+export const getBedrockSessionToken = () =>
+  loadConfig().MODELS.BEDROCK.SESSION_TOKEN;
+
+export const getBedrockCredentialsFile = () =>
+  loadConfig().MODELS.BEDROCK.CREDENTIALS_FILE;
+
+// Function to load AWS credentials from JSON file
+export const loadAwsCredentialsFromFile = () => {
+  if (typeof window === 'undefined') {
+    try {
+      const credentialsPath = '/Users/azub/aws-credentials.json';
+      const credentialsData = fs.readFileSync(credentialsPath, 'utf-8');
+      const credentials = JSON.parse(credentialsData);
+      
+      return {
+        accessKeyId: credentials.accessKeyId,
+        secretAccessKey: credentials.secretAccessKey,
+        sessionToken: credentials.sessionToken,
+        region: credentials.region,
+      };
+    } catch (error) {
+      console.error('Error loading AWS credentials from file:', error);
+      return null;
+    }
+  }
+  return null;
+};
 
 const mergeConfigs = (current: any, update: any): any => {
   if (update === null || update === undefined) {

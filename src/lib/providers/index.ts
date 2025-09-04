@@ -45,6 +45,10 @@ import {
   loadLMStudioEmbeddingsModels,
   PROVIDER_INFO as LMStudioInfo,
 } from './lmstudio';
+import {
+  loadBedrockChatModels,
+  PROVIDER_INFO as BedrockInfo,
+} from './bedrock';
 
 export const PROVIDER_METADATA = {
   openai: OpenAIInfo,
@@ -56,6 +60,7 @@ export const PROVIDER_METADATA = {
   deepseek: DeepseekInfo,
   aimlapi: AimlApiInfo,
   lmstudio: LMStudioInfo,
+  bedrock: BedrockInfo,
   custom_openai: {
     key: 'custom_openai',
     displayName: 'Custom OpenAI',
@@ -84,6 +89,7 @@ export const chatModelProviders: Record<
   deepseek: loadDeepseekChatModels,
   aimlapi: loadAimlApiChatModels,
   lmstudio: loadLMStudioChatModels,
+  bedrock: loadBedrockChatModels,
 };
 
 export const embeddingModelProviders: Record<

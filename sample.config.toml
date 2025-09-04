@@ -31,5 +31,10 @@ API_KEY = "" # Required to use AI/ML API chat and embedding models
 [MODELS.LM_STUDIO]
 API_URL = "" # LM Studio API URL - http://host.docker.internal:1234
 
+[MODELS.BEDROCK]
+ACCESS_KEY_ID = "" # AWS Access Key ID
+SECRET_ACCESS_KEY = "" # AWS Secret Access Key
+REGION = "" # AWS Region (e.g., us-west-2)
+
 [API_ENDPOINTS]
 SEARXNG = "" # SearxNG API URL - http://localhost:32768
