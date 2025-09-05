@@ -133,7 +133,7 @@ export const loadAwsCredentialsFromFile = () => {
       const credentialsPath = '/Users/azub/aws-credentials.json';
       const credentialsData = fs.readFileSync(credentialsPath, 'utf-8');
       const credentials = JSON.parse(credentialsData);
-      
+
       return {
         accessKeyId: credentials.accessKeyId,
         secretAccessKey: credentials.secretAccessKey,

@@ -45,10 +45,7 @@ import {
   loadLMStudioEmbeddingsModels,
   PROVIDER_INFO as LMStudioInfo,
 } from './lmstudio';
-import {
-  loadBedrockChatModels,
-  PROVIDER_INFO as BedrockInfo,
-} from './bedrock';
+import { loadBedrockChatModels, PROVIDER_INFO as BedrockInfo } from './bedrock';
 
 export const PROVIDER_METADATA = {
   openai: OpenAIInfo,

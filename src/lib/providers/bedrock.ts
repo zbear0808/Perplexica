@@ -1,6 +1,11 @@
 import { BedrockChat } from '@langchain/community/chat_models/bedrock';
 import { ChatModel } from '.';
-import { getBedrockAccessKeyId, getBedrockSecretAccessKey, getBedrockRegion, loadAwsCredentialsFromFile } from '../config';
+import {
+  getBedrockAccessKeyId,
+  getBedrockSecretAccessKey,
+  getBedrockRegion,
+  loadAwsCredentialsFromFile,
+} from '../config';
 import { BaseChatModel } from '@langchain/core/language_models/chat_models';
 
 export const PROVIDER_INFO = {
@@ -38,15 +43,18 @@ const bedrockChatModels: Record<string, string>[] = [
 export const loadBedrockChatModels = async () => {
   // First try to load credentials from JSON file
   const fileCredentials = loadAwsCredentialsFromFile();
-  
+
   // Fallback to config.toml values
   const accessKeyId = fileCredentials?.accessKeyId || getBedrockAccessKeyId();
-  const secretAccessKey = fileCredentials?.secretAccessKey || getBedrockSecretAccessKey();
+  const secretAccessKey =
+    fileCredentials?.secretAccessKey || getBedrockSecretAccessKey();
   const region = fileCredentials?.region || getBedrockRegion();
   const sessionToken = fileCredentials?.sessionToken;
 
   if (!accessKeyId || !secretAccessKey || !region) {
-    console.log('AWS Bedrock credentials not found. Please check your credentials file or config.toml');
+    console.log(
+      'AWS Bedrock credentials not found. Please check your credentials file or config.toml',
+    );
     return {};
   }
 
@@ -75,7 +83,9 @@ export const loadBedrockChatModels = async () => {
       };
     });
 
-    console.log(`Loaded ${Object.keys(chatModels).length} AWS Bedrock models from region: ${region}`);
+    console.log(
+      `Loaded ${Object.keys(chatModels).length} AWS Bedrock models from region: ${region}`,
+    );
     return chatModels;
   } catch (err) {
     console.error(`Error loading AWS Bedrock models: ${err}`);
