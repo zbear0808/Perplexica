@@ -1,4 +1,4 @@
-import { ChatBedrock } from '@langchain/community/chat_models/bedrock';
+import { BedrockChat } from '@langchain/community/chat_models/bedrock';
 import { ChatModel } from '.';
 import { getBedrockAccessKeyId, getBedrockSecretAccessKey, getBedrockRegion, loadAwsCredentialsFromFile } from '../config';
 import { BaseChatModel } from '@langchain/core/language_models/chat_models';
@@ -66,7 +66,7 @@ export const loadBedrockChatModels = async () => {
 
       chatModels[model.key] = {
         displayName: model.displayName,
-        model: new ChatBedrock({
+        model: new BedrockChat({
           region: region,
           credentials: credentials,
           model: model.key,
