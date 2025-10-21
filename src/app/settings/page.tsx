@@ -154,6 +154,9 @@ const Page = () => {
   const [measureUnit, setMeasureUnit] = useState<'Imperial' | 'Metric'>(
     'Metric',
   );
+  const [defaultOptimizationMode, setDefaultOptimizationMode] = useState<
+    'speed' | 'balanced'
+  >('speed');
   const [savingStates, setSavingStates] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
@@ -218,6 +221,12 @@ const Page = () => {
 
       setMeasureUnit(
         localStorage.getItem('measureUnit')! as 'Imperial' | 'Metric',
+      );
+
+      setDefaultOptimizationMode(
+        (localStorage.getItem('defaultOptimizationMode') as
+          | 'speed'
+          | 'balanced') || 'speed',
       );
 
       setIsLoading(false);
@@ -380,6 +389,8 @@ const Page = () => {
         localStorage.setItem('systemInstructions', value);
       } else if (key === 'measureUnit') {
         localStorage.setItem('measureUnit', value.toString());
+      } else if (key === 'defaultOptimizationMode') {
+        localStorage.setItem('defaultOptimizationMode', value);
       }
     } catch (err) {
       console.error('Failed to save:', err);
@@ -453,6 +464,30 @@ const Page = () => {
                     {
                       label: 'Imperial',
                       value: 'Imperial',
+                    },
+                  ]}
+                />
+              </div>
+              <div className="flex flex-col space-y-1">
+                <p className="text-black/70 dark:text-white/70 text-sm">
+                  Default Optimization Mode
+                </p>
+                <Select
+                  value={defaultOptimizationMode ?? undefined}
+                  onChange={(e) => {
+                    setDefaultOptimizationMode(
+                      e.target.value as 'speed' | 'balanced',
+                    );
+                    saveConfig('defaultOptimizationMode', e.target.value);
+                  }}
+                  options={[
+                    {
+                      label: 'Speed',
+                      value: 'speed',
+                    },
+                    {
+                      label: 'Balanced',
+                      value: 'balanced',
                     },
                   ]}
                 />

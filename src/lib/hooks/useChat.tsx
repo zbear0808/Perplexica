@@ -348,7 +348,11 @@ export const ChatProvider = ({
   const [fileIds, setFileIds] = useState<string[]>([]);
 
   const [focusMode, setFocusMode] = useState('webSearch');
-  const [optimizationMode, setOptimizationMode] = useState('speed');
+  const [optimizationMode, setOptimizationMode] = useState(
+    typeof window !== 'undefined'
+      ? localStorage.getItem('defaultOptimizationMode') || 'speed'
+      : 'speed',
+  );
 
   const [isMessagesLoaded, setIsMessagesLoaded] = useState(false);
 
